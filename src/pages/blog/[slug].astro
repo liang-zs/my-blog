@@ -1,0 +1,93 @@
+---
+// [slug].astro — 文件名里的 [slug] 是动态路由
+// 访问 /blog/hello-world 时，Astro 会把 hello-world 传给这个文件
+
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// getStaticPaths 告诉 Astro：要为哪些路径生成页面
+// Astro 会为 src/content/blog/ 里的每个 .md 文件生成一个对应页面
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+// render() 返回两样东西：
+// Content  — 渲染好的 HTML 内容（直接用 <Content /> 组件插入）
+// headings — 文章所有标题的列表，用于生成目录
+const { Content, headings } = await post.render();
+
+// 只在目录里显示 h2 和 h3
+const tocHeadings = headings.filter(h => h.depth === 2 || h.depth === 3);
+---
+
+<Layout title={`${post.data.title} · 谷瑞的博客`}>
+  <main class="post-layout">
+
+    <!-- 左侧目录 -->
+    <aside class="toc-sidebar">
+      {tocHeadings.length > 0 && (
+        <div class="toc-sticky">
+          <p class="toc-title">目录</p>
+          <nav class="toc-nav">
+            {tocHeadings.map(h => (
+              <a
+                href={`#${h.slug}`}
+                class={`toc-link toc-h${h.depth}`}
+              >
+                {h.text}
+              </a>
+            ))}
+          </nav>
+        </div>
+      )}
+    </aside>
+
+    <!-- 正文 -->
+    <article class="post-body">
+      <header class="post-page-header">
+        <div class="post-meta">
+          <time>{post.data.date.toISOString().slice(0, 10)}</time>
+          {post.data.tags?.map(tag => (
+            <span class="post-tag">{tag}</span>
+          ))}
+        </div>
+      </header>
+
+      <div class="prose">
+        <!-- Astro 在这里自动渲染 Markdown，包含代码高亮 -->
+        <Content />
+      </div>
+    </article>
+
+  </main>
+</Layout>
+
+<!-- 滚动时高亮目录当前章节 -->
+<script>
+  const headings = document.querySelectorAll<HTMLElement>('.prose h2, .prose h3');
+  const tocLinks = document.querySelectorAll<HTMLAnchorElement>('.toc-link');
+
+  if (headings.length > 0 && tocLinks.length > 0) {
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            tocLinks.forEach(link => {
+              link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+            });
+          }
+        });
+      },
+      { rootMargin: '-10% 0px -80% 0px' }
+    );
+
+    headings.forEach(h => observer.observe(h));
+  }
+</script>

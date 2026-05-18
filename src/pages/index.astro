@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// getCollection('blog') 自动读取 src/content/blog/ 下所有 .md 文件
+const posts = await getCollection('blog');
+
+// 按日期排序，最新的排最前面
+posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Layout title="谷瑞的博客">
+  <main class="main-content">
+
+    <!-- 个人简介 -->
+    <section class="hero">
+      <div class="avatar-placeholder">谷</div>
+      <h1 class="hero-name">谷瑞</h1>
+      <p class="hero-bio">
+        你好，我是一名探知者。我喜欢探索未知的领域，在这里我记录我的思考与探索。
+      </p>
+      <div class="social-links">
+        <a href="https://github.com/liang-zs" class="social-link">GitHub</a>
+        <a href="mailto:yikoujinxin@gmail.com" class="social-link">邮件</a>
+      </div>
+    </section>
+
+    <!-- 文章列表：Astro 自动从 content/blog/ 读取，不需要手动添加 -->
+    <section class="posts-section">
+      <h2 class="section-title">最新文章</h2>
+      <div class="post-list">
+        {posts.map(post => (
+          <article class="post-card">
+            <div class="post-meta">
+              <!-- toISOString().slice(0,10) 输出 "2026-05-19" 格式，避免时区问题 -->
+              <time>{post.data.date.toISOString().slice(0, 10)}</time>
+              {post.data.tags?.map(tag => (
+                <span class="post-tag">{tag}</span>
+              ))}
+            </div>
+            <h3 class="post-title">
+              <a href={`${base}blog/${post.slug}`}>{post.data.title}</a>
+            </h3>
+            <p class="post-excerpt">{post.data.description}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+  </main>
+</Layout>

@@ -1,0 +1,104 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="关于 · 谷瑞的博客">
+  <main class="main-content">
+    <article class="about-page">
+
+      <div class="about-header">
+        <div class="avatar-placeholder about-avatar">谷</div>
+        <div class="about-intro">
+          <h1>谷瑞</h1>
+          <p class="about-tagline">探知者 · 记录者 · 思考者</p>
+          <div class="social-links" style="justify-content: flex-start; margin-top: 0.75rem;">
+            <a href="https://github.com/liang-zs" class="social-link">GitHub</a>
+            <a href="mailto:yikoujinxin@gmail.com" class="social-link">邮件</a>
+          </div>
+        </div>
+      </div>
+
+      <hr class="about-divider" />
+
+      <section class="about-section">
+        <h2>我的故事</h2>
+        <p>你好，我是谷瑞。</p>
+        <p>我相信，人生最有趣的事情，是不断遇见未知的自己。每一次探索，无论结果如何，都会让我对世界的理解深一层。</p>
+        <p>开始写这个博客，是因为我想把散落在脑子里的想法整理清楚。文字是最好的思考工具。</p>
+      </section>
+
+      <section class="about-section">
+        <h2>我的兴趣</h2>
+        <p>在工作和学习之外，我的时间花在这些地方：</p>
+        <div class="interest-grid">
+          <div class="interest-card">
+            <span class="interest-icon">📚</span>
+            <h3>读书</h3>
+            <p>历史、哲学、科学，以及一切能让人换一个视角看世界的书。</p>
+          </div>
+          <div class="interest-card">
+            <span class="interest-icon">🔭</span>
+            <h3>探索</h3>
+            <p>新的地方、新的工具、新的思想。好奇心是最好的引擎。</p>
+          </div>
+          <div class="interest-card">
+            <span class="interest-icon">✍️</span>
+            <h3>写作</h3>
+            <p>用文字整理思路，把复杂的事情说清楚。</p>
+          </div>
+          <div class="interest-card">
+            <span class="interest-icon">💻</span>
+            <h3>技术</h3>
+            <p>用代码把想法变成现实，这个博客就是第一个作品。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-section">
+        <h2>我擅长什么</h2>
+        <p>我的知识结构跨越几个领域，目前正在深耕：</p>
+        <ul class="skill-list">
+          <li>
+            <span class="skill-name">独立思考</span>
+            <span class="skill-desc">不轻易接受既有结论，喜欢追问"为什么"</span>
+          </li>
+          <li>
+            <span class="skill-name">系统学习</span>
+            <span class="skill-desc">把新知识纳入已有框架，形成体系化认知</span>
+          </li>
+          <li>
+            <span class="skill-name">清晰表达</span>
+            <span class="skill-desc">把复杂的想法用简单的语言说清楚</span>
+          </li>
+        </ul>
+        <p style="margin-top: 1rem;">目前我正在学习编程和网页开发，这个博客就是边学边做的成果。</p>
+      </section>
+
+      <section class="about-section">
+        <h2>联系我</h2>
+        <p>如果你有任何想法，欢迎和我聊聊：</p>
+        <div class="contact-list">
+          <a href="https://github.com/liang-zs" class="contact-item">
+            <span class="contact-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+            </span>
+            <span>github.com/liang-zs</span>
+          </a>
+          <a href="mailto:yikoujinxin@gmail.com" class="contact-item">
+            <span class="contact-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+              </svg>
+            </span>
+            <span>yikoujinxin@gmail.com</span>
+          </a>
+        </div>
+        <p class="about-closing">如果你也是一个喜欢探索、保持好奇的人，很高兴认识你。</p>
+      </section>
+
+    </article>
+  </main>
+</Layout>

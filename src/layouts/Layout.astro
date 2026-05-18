@@ -1,0 +1,53 @@
+---
+// 这个文件是所有页面共享的"外壳"：导航栏 + 页脚 + <head>
+// Astro 组件的 --- 代码块在构建时执行，不会出现在最终 HTML 里
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+// import.meta.env.BASE_URL 会自动读取 astro.config.mjs 里的 base 值
+const base = import.meta.env.BASE_URL;
+const pathname = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <!-- 引入全局样式 -->
+  </head>
+  <body>
+
+    <header class="site-header">
+      <nav class="nav-container">
+        <a href={base} class="nav-logo">谷瑞的博客</a>
+        <ul class="nav-links">
+          <li>
+            <!-- class:list 是 Astro 的条件 class 语法 -->
+            <a href={base} class:list={[{ active: pathname === base }]}>首页</a>
+          </li>
+          <li>
+            <a href={`${base}about`} class:list={[{ active: pathname.includes('/about') }]}>关于</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- <slot /> 是占位符，每个页面的内容会插入到这里 -->
+    <slot />
+
+    <footer class="site-footer">
+      <p>© 2026 谷瑞 · 用 ❤️ 制作</p>
+    </footer>
+
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>
