@@ -8,8 +8,8 @@ interface Props {
 
 const { title } = Astro.props;
 
-// import.meta.env.BASE_URL 会自动读取 astro.config.mjs 里的 base 值
-const base = import.meta.env.BASE_URL;
+// BASE_URL 在生产构建时不带结尾斜杠，统一去掉再拼接
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const pathname = Astro.url.pathname;
 ---
 
@@ -25,14 +25,13 @@ const pathname = Astro.url.pathname;
 
     <header class="site-header">
       <nav class="nav-container">
-        <a href={base} class="nav-logo">谷瑞的博客</a>
+        <a href={`${base}/`} class="nav-logo">谷瑞的博客</a>
         <ul class="nav-links">
           <li>
-            <!-- class:list 是 Astro 的条件 class 语法 -->
-            <a href={base} class:list={[{ active: pathname === base }]}>首页</a>
+            <a href={`${base}/`} class:list={[{ active: pathname === `${base}/` || pathname === base }]}>首页</a>
           </li>
           <li>
-            <a href={`${base}about`} class:list={[{ active: pathname.includes('/about') }]}>关于</a>
+            <a href={`${base}/about`} class:list={[{ active: pathname.includes('/about') }]}>关于</a>
           </li>
         </ul>
       </nav>

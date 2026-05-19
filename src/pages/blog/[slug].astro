@@ -16,6 +16,7 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 // render() 返回两样东西：
 // Content  — 渲染好的 HTML 内容（直接用 <Content /> 组件插入）
